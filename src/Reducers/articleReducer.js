@@ -1,9 +1,7 @@
 
 const initialState = {
     articles: [],
-    loading: false,
 }
-
 
 const articleReducer = (state = initialState, action) => {
     console.log('articleReducer',action);
@@ -11,13 +9,9 @@ const articleReducer = (state = initialState, action) => {
       case 'GET_ARTICLE':
         return {
           ...state,
-          articles: action.payload,
+          articles: action,
         };
-      case 'SET_LOADING_STATUS':
-        return {
-          ...state,
-          loading: action.status,
-        };
+     
       default:
         return state;
     }

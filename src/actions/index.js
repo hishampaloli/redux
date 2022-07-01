@@ -6,6 +6,11 @@ export const setUser = (payload) => ({
   user: payload,
 });
 
+export const getArticles = (paylaod) => ({
+    type: "GET_ARTICLE",
+    paylaod: paylaod,
+  });
+
 export function signInAPI() {
   return (dispatch) => {
     auth
@@ -22,7 +27,7 @@ export function signOutAPI() {
   return (dispatch) => {
     auth.signOut().then(() => {
       dispatch(setUser(null)).catch((error) => {
-        console.log(error.message);
+        // console.log(error.message);
       });
     });
   };
@@ -38,10 +43,7 @@ export function getUserAuth() {
   };
 }
 
-export const getArticles = (paylaod) => ({
-  type: "GET_ARTICLE",
-  paylaod: paylaod,
-});
+
 
 export function postArticleAPI(paylaod) {
   return (dispatch) => {
@@ -77,22 +79,12 @@ export function postArticleAPI(paylaod) {
 
 export function getArticlesAPI() {
     return (dispatch) => {
-    //   let payload;
+      let payload;
   
-    //   db.collection('articles').orderBy('actor.date', 'desc')
-    //   .onSnapshot((snapshot) => {
-    //     payload = snapshot.docs.map((doc) => doc.data());
-        
-    //     console.log(db.collection('articles'));
-    //     dispatch(getArticles(payload))
-    //   })
-    db.collection("articles").get().then((querySnapshot) => {
-        querySnapshot.forEach(element => {
-            var data = element.data();
-            getArticles(arr => [data]);
-            console.log(data);
-              
-        });
-    })
+      db.collection('articles')
+      .onSnapshot((snapshot) => {
+        payload = snapshot.docs.map((doc) => doc.data());
+        dispatch(getArticles(payload))
+      })
     }
   }

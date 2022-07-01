@@ -3,32 +3,32 @@ import { useDispatch, useSelector } from "react-redux/es/exports";
 import { signOutAPI } from "./actions";
 import { useNavigate } from "react-router-dom";
 import { postArticleAPI, getArticlesAPI } from "./actions";
-
+import db from "./firebase";
 
 function Home() {
 
-    useEffect(() => {
-        dispatch(getArticlesAPI())
-  }, [])
+
+  useEffect(() => {
+   dispatch(getArticlesAPI())
+  }, []);
+
+  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
- 
-
-const article = useSelector((state) => state.articleState.articles)
-console.log(article);
-
+  const articles = useSelector((state) => state.articleState.articles);
   const user = useSelector((state) => state.userState.user);
+
+  console.log('art =>>>>', articles);
 
   const handleOut = () => {
     dispatch(signOutAPI());
   };
 
-  const [text,setText] = useState('');
-  const [image,setImage] = useState('');
+  const [text, setText] = useState("");
+  const [image, setImage] = useState("");
 
-  
   const handleChange = (e) => {
     const image = e.target.files[0];
 
@@ -39,40 +39,46 @@ console.log(article);
     setImage(image);
   };
 
-
   const postArticle = (e) => {
     e.preventDefault();
 
-    if (e.target !== e.currentTarget){
-        return;
+    if (e.target !== e.currentTarget) {
+      return;
     }
 
     const payload = {
-        image: image,
-        description: text,
+      image: image,
+      description: text,
     };
 
     dispatch(postArticleAPI(payload));
     console.log(payload);
-  }
+  };
 
   return (
     <div>
       <button onClick={handleOut}>sign Out</button>
       <input
-                  type="file"
-                  accept="image/gif, image/jpeg, image/png"
-                  id="file"
-                  name="image"
-                  style={{ display: "none" }}
-                  onChange={handleChange}
-                />
+        type="file"
+        accept="image/gif, image/jpeg, image/png"
+        id="file"
+        name="image"
+        style={{ display: "none" }}
+        onChange={handleChange}
+      />
 
-                <label htmlFor="file">imag</label>
+      <label htmlFor="file">imag</label>
 
-                <textarea name="" id="" cols="30" rows="10" onChange={(e) => setText(e.target.value)} ></textarea>
+      <textarea
+        name=""
+        id=""
+        cols="30"
+        rows="10"
+        onChange={(e) => setText(e.target.value)}
+      ></textarea>
 
-                <button onClick={postArticle}>save</button>
+      <button onClick={postArticle}>save</button>
+
     </div>
   );
 }

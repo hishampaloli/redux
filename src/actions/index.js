@@ -33,6 +33,29 @@ export function signOutAPI() {
   };
 }
 
+export function registerAPI(email,password) {
+  return (dispatch) => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((auth) => {
+      })
+      .catch((error) => alert(error.message));
+  }
+}
+
+export function loginAPI(email,password) {
+  return (dispatch) => {
+    auth
+    .signInWithEmailAndPassword(email, password)
+    .then((auth) => {
+      console.log(auth);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+  }
+}
+
 export function getUserAuth() {
   return (dispatch) => {
     auth.onAuthStateChanged(async (user) => {

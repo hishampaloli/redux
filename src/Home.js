@@ -50,13 +50,13 @@ function Home() {
       image: image,
       description: text,
     };
-
     dispatch(postArticleAPI(payload));
     console.log(payload);
   };
 
   return (
     <div>
+{!user && navigate('/')}
       <button onClick={handleOut}>sign Out</button>
       <input
         type="file"

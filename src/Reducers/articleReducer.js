@@ -9,7 +9,7 @@ const articleReducer = (state = initialState, action) => {
       case 'GET_ARTICLE':
         return {
           ...state,
-          articles: action,
+          articles: action.paylaod,
         };
      
       default:

@@ -104,7 +104,10 @@ export function getArticlesAPI() {
     return (dispatch) => {
       let payload;
   
-      db.collection('articles')
+     
+      const citiesRef =  db.collection('articles')
+      const queryRef = citiesRef.where('description', '==', 'hisham paloli')
+
       .onSnapshot((snapshot) => {
         payload = snapshot.docs.map((doc) => doc.data());
         dispatch(getArticles(payload))

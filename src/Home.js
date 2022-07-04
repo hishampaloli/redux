@@ -78,7 +78,12 @@ function Home() {
       ></textarea>
 
       <button onClick={postArticle}>save</button>
-
+{articles.map(i => {
+  return <div>
+    <h1>{i.description}</h1>
+    <img src={i.sharedImg} alt="" />
+  </div>
+})}
     </div>
   );
 }

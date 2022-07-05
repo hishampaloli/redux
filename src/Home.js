@@ -20,7 +20,7 @@ function Home() {
   const articles = useSelector((state) => state.articleState.articles);
   const user = useSelector((state) => state.userState.user);
 
-  console.log('art =>>>>', articles);
+  console.log('art =>>>>', user.displayName);
 
   const handleOut = () => {
     dispatch(signOutAPI());
@@ -49,6 +49,7 @@ function Home() {
     const payload = {
       image: image,
       description: text,
+      name: user.email
     };
     dispatch(postArticleAPI(payload));
     console.log(payload);
@@ -81,6 +82,7 @@ function Home() {
 {articles.map(i => {
   return <div>
     <h1>{i.description}</h1>
+    <h2>{i.email}</h2>
     <img src={i.sharedImg} alt="" />
   </div>
 })}

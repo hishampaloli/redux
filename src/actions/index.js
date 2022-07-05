@@ -90,8 +90,8 @@ export function postArticleAPI(paylaod) {
           const downloadURL = await upload.snapshot.ref.getDownloadURL();
           db.collection("articles").add({
             sharedImg: downloadURL,
-            comments: 0,
             description: paylaod.description,
+            email: paylaod.name
           });
         }
       );
@@ -106,11 +106,12 @@ export function getArticlesAPI() {
   
      
       const citiesRef =  db.collection('articles')
-      const queryRef = citiesRef.where('description', '==', 'hisham paloli')
+      const queryRef = citiesRef.where('email', '==', 'hishampalolo@gmail.com')
 
       .onSnapshot((snapshot) => {
         payload = snapshot.docs.map((doc) => doc.data());
         dispatch(getArticles(payload))
+        console.log('XXXX>>>', payload);
       })
     }
   }
